@@ -15,6 +15,7 @@
 for D in `ls /usr/home`
 do
 	(su $D -c 'ssh-keygen -t rsa')
+	echo 'exec mate-session' > /usr/home/$D/.xinitrc
 done
  
 SVN_URL=svn://svn.freebsd.org/base/releng/$(freebsd-version | cut -d - -f 1)
@@ -233,7 +234,7 @@ chmod a+x /usr/local/bin/update
 echo 'case "$*" in' >> /usr/local/bin/update
 echo '*-p*)' >> /usr/local/bin/update
 echo 'portsnap fetch update' >> /usr/local/bin/update
-echo '/usr/local/sbin/portupgrade -a /usr/local/sbin/portupgrade -a -x www/firefox -x www/chromium -x print/cups-image -x misc/trueos-base' >> /usr/local/bin/update
+echo '/usr/local/sbin/portupgrade -a -x www/firefox -x www/chromium' >> /usr/local/bin/update
 echo ';;' >> /usr/local/bin/update
 echo '*-b*)' >> /usr/local/bin/update
 echo '/usr/sbin/freebsd-update fetch install' >> /usr/local/bin/update
