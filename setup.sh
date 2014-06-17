@@ -1,11 +1,8 @@
 #! /bin/sh
  
-# fetch --no-verify-peer https://gist.github.com/badcab/7964370/download
-# tar -zxvf download
-# rm download
-# mv gist*/freeBSD10_setup.sh .
-# chmod +x freeBSD10_setup.sh
-# rm -r gist*
+# fetch --no-verify-peer https://github.com/badcab/freebsd_10_setup/archive/master.zip
+# unzip master.zip 
+# ./cd freebsd_10_setup-master/setup.sh --full --kern --reboot
  
 #install TrueOS from PC-BSD rather than regular FreeBSD, not nessisary but this is what I am testing on
  
@@ -36,7 +33,7 @@ if [ ! -d /usr/local/etc/X11/xinit/xinitrc.d ] ;then
 	chmod +x /usr/local/etc/X11/xinit/xinitrc.d/mate.sh
 	echo "exec mate-session" >> /usr/local/etc/X11/xinit/xinitrc.d/mate.sh
 fi
-#still broken
+#still broken need to put an .xinitrc in home dir
  
 #loader
 if ! grep 'linux_load' /boot/loader.conf ;then
@@ -236,7 +233,7 @@ chmod a+x /usr/local/bin/update
 echo 'case "$*" in' >> /usr/local/bin/update
 echo '*-p*)' >> /usr/local/bin/update
 echo 'portsnap fetch update' >> /usr/local/bin/update
-echo '/usr/local/sbin/portupgrade -a' >> /usr/local/bin/update
+echo '/usr/local/sbin/portupgrade -a /usr/local/sbin/portupgrade -a -x www/firefox -x www/chromium -x print/cups-image -x misc/trueos-base' >> /usr/local/bin/update
 echo ';;' >> /usr/local/bin/update
 echo '*-b*)' >> /usr/local/bin/update
 echo '/usr/sbin/freebsd-update fetch install' >> /usr/local/bin/update
